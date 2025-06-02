@@ -4,18 +4,29 @@ import { ec as EC } from "elliptic";
 import sha256 from "crypto-js/sha256";
 import ripemd160 from "crypto-js/ripemd160";
 import base58 from "base-58";
+import { Buffer } from "buffer";
 
+/**
+ * Генерация нового кошелька
+ */
 export function generateWallet() {
     const ec = new EC("secp256k1");
     const key = ec.genKeyPair();
-    const pub = key.getPublic(false, "hex");
+    const pub = key.getPublic(false, "hex"); // uncompressed hex
+
+    // Хешируем публичный ключ: SHA256 -> RIPEMD160
     const sha = sha256(Buffer.from(pub.slice(2), "hex")).toString();
     const ripemd = ripemd160(Buffer.from(sha, "hex")).toString();
+
+    // Префикс "GND"
     const prefix = Buffer.from("GND");
     const pubKeyHash = Buffer.from(ripemd, "hex");
     const payload = Buffer.concat([prefix, pubKeyHash]);
+
+    // Контрольная сумма: первые 4 байта двойного SHA256
     const checksum = sha256(sha256(payload)).toString().slice(0, 8);
     const fullPayload = Buffer.concat([payload, Buffer.from(checksum, "hex")]);
+
     const address = base58.encode(fullPayload);
 
     return {
@@ -24,7 +35,6 @@ export function generateWallet() {
         publicKey: pub,
     };
 }
-
 
 /**
  * Импорт кошелька по приватному ключу (hex)
@@ -38,7 +48,7 @@ export function importWalletFromPrivateKey(privKeyHex: string) {
     const sha = sha256(Buffer.from(pub.slice(2), "hex")).toString();
     const ripemd = ripemd160(Buffer.from(sha, "hex")).toString();
 
-    // Префикс "GND" (можно добавить случайный выбор "GN" для совместимости)
+    // Префикс "GND"
     const prefix = Buffer.from("GND");
     const pubKeyHash = Buffer.from(ripemd, "hex");
     const payload = Buffer.concat([prefix, pubKeyHash]);
@@ -46,6 +56,7 @@ export function importWalletFromPrivateKey(privKeyHex: string) {
     // Контрольная сумма: первые 4 байта двойного SHA256
     const checksum = sha256(sha256(payload)).toString().slice(0, 8);
     const fullPayload = Buffer.concat([payload, Buffer.from(checksum, "hex")]);
+
     const address = base58.encode(fullPayload);
 
     return {

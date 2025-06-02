@@ -31,7 +31,8 @@ const Home: React.FC = () => {
     };
 
     const handleImport = (data: WalletData) => {
-        importWallet(() => data);
+        alert("Импорт кошелька пока не реализован.");
+        // importWallet(data.privateKey, data.publicKey);
     };
 
 
