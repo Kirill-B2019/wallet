@@ -1,0 +1,179 @@
+/* ui/wallet/src/App.css */
+
+/* Основные стили для кошелька ГАНИМЕД */
+
+/* Базовая разметка */
+body {
+  background: #f7f8fa;
+  font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+  color: #222;
+  margin: 0;
+  padding: 0;
+}
+
+h2, h3, h4 {
+  margin-top: 0;
+  font-weight: 600;
+}
+
+a {
+  color: #3a7afe;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+button {
+  background: #3a7afe;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 18px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: background 0.15s;
+}
+
+button:disabled {
+  background: #b3cdfd;
+  cursor: not-allowed;
+}
+
+button:hover:not(:disabled) {
+  background: #155ec9;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="password"] {
+  border: 1px solid #d3d7de;
+  border-radius: 5px;
+  padding: 8px 12px;
+  font-size: 15px;
+  margin-top: 4px;
+  margin-bottom: 8px;
+  width: 100%;
+  box-sizing: border-box;
+  outline: none;
+  transition: border 0.15s;
+}
+
+input:focus {
+  border-color: #3a7afe;
+}
+
+.wallet-create-card,
+.wallet-import-card,
+.wallet-export-card,
+.settings-card,
+.balance-card,
+.receive-card,
+.send-card,
+.transactions-card,
+.token-list {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 16px rgba(60, 80, 120, 0.07);
+  padding: 24px 20px 20px 20px;
+  margin-bottom: 24px;
+  max-width: 100%;
+}
+
+.token-item {
+  background: #f8fafd;
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin-bottom: 10px;
+  border: 1px solid #e5e8ef;
+}
+
+.notification {
+  background: #e7fbe7;
+  border: 1px solid #b5ebb5;
+  color: #197b30;
+  padding: 7px 12px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 700px) {
+  .wallet-create-card,
+  .wallet-import-card,
+  .wallet-export-card,
+  .settings-card,
+  .balance-card,
+  .receive-card,
+  .send-card,
+  .transactions-card,
+  .token-list {
+    padding: 12px 6px 10px 6px;
+  }
+  h2 {
+    font-size: 1.2em;
+  }
+}
+
+/* Стили для таблиц истории транзакций */
+.transactions-card table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 8px;
+}
+
+.transactions-card th,
+.transactions-card td {
+  border-bottom: 1px solid #e5e8ef;
+  padding: 6px 8px;
+  text-align: left;
+  font-size: 13px;
+}
+
+.transactions-card th {
+  background: #f3f6fb;
+  font-weight: 600;
+}
+
+.transactions-card tr:last-child td {
+  border-bottom: none;
+}
+
+/* Стили для предупреждений */
+.warning {
+  color: #c82333;
+  background: #fff3f3;
+  border: 1px solid #f5c6cb;
+  padding: 7px 12px;
+  border-radius: 6px;
+  margin: 10px 0;
+  font-size: 13px;
+}
+
+/* Стили для копирования и уведомлений */
+.copy-btn {
+  margin-left: 8px;
+  font-size: 13px;
+  background: #e5e8ef;
+  color: #3a7afe;
+  border: none;
+  border-radius: 4px;
+  padding: 3px 10px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.copy-btn:hover {
+  background: #d3d7de;
+}
+
+.success {
+  color: #197b30;
+  background: #e7fbe7;
+  border: 1px solid #b5ebb5;
+  padding: 6px 12px;
+  border-radius: 6px;
+  margin: 8px 0;
+  font-size: 13px;
+}

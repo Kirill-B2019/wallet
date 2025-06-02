@@ -1,0 +1,16 @@
+# ui/wallet/public/robots.txt
+
+# robots.txt для веб-кошелька ГАНИМЕД
+
+# Разрешить индексацию всем поисковым роботам
+User-agent: *
+Disallow:
+
+# (Опционально) Укажите ссылку на sitemap, если он есть
+# Sitemap: https://your-wallet-domain.com/sitemap.xml
+
+# Пример: если нужно закрыть от индексации приватные или служебные разделы, добавьте:
+# Disallow: /admin/
+# Disallow: /private/
+
+# Комментарии начинаются с #
