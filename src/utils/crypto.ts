@@ -18,16 +18,16 @@ export function generateWallet() {
     const sha = sha256(Buffer.from(pub.slice(2), "hex")).toString();
     const ripemd = ripemd160(Buffer.from(sha, "hex")).toString();
 
-    // Префикс "GND"
-    const prefix = Buffer.from("GND");
+    // Формируем payload (без префикса)
     const pubKeyHash = Buffer.from(ripemd, "hex");
-    const payload = Buffer.concat([prefix, pubKeyHash]);
 
     // Контрольная сумма: первые 4 байта двойного SHA256
-    const checksum = sha256(sha256(payload)).toString().slice(0, 8);
-    const fullPayload = Buffer.concat([payload, Buffer.from(checksum, "hex")]);
+    const checksum = sha256(sha256(pubKeyHash)).toString().slice(0, 8);
+    const fullPayload = Buffer.concat([pubKeyHash, Buffer.from(checksum, "hex")]);
 
-    const address = base58.encode(fullPayload);
+    // Кодируем в base58 и добавляем префикс "GND"
+    const base58Address = base58.encode(fullPayload);
+    const address = `GND${base58Address}`; // Добавляем префикс после кодирования
 
     return {
         address,
@@ -48,16 +48,16 @@ export function importWalletFromPrivateKey(privKeyHex: string) {
     const sha = sha256(Buffer.from(pub.slice(2), "hex")).toString();
     const ripemd = ripemd160(Buffer.from(sha, "hex")).toString();
 
-    // Префикс "GND"
-    const prefix = Buffer.from("GND");
+    // Формируем payload (без префикса)
     const pubKeyHash = Buffer.from(ripemd, "hex");
-    const payload = Buffer.concat([prefix, pubKeyHash]);
 
     // Контрольная сумма: первые 4 байта двойного SHA256
-    const checksum = sha256(sha256(payload)).toString().slice(0, 8);
-    const fullPayload = Buffer.concat([payload, Buffer.from(checksum, "hex")]);
+    const checksum = sha256(sha256(pubKeyHash)).toString().slice(0, 8);
+    const fullPayload = Buffer.concat([pubKeyHash, Buffer.from(checksum, "hex")]);
 
-    const address = base58.encode(fullPayload);
+    // Кодируем в base58 и добавляем префикс "GND"
+    const base58Address = base58.encode(fullPayload);
+    const address = `GND${base58Address}`;
 
     return {
         address,

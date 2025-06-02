@@ -1,32 +1,29 @@
-// ui/wallet/src/utils/address.ts
-
+//src/utils/address.ts
 import base58 from "base-58";
 import sha256 from "crypto-js/sha256";
+import { Buffer } from "buffer";
 
-/**
- * Проверяет корректность адреса сети ГАНИМЕД (GND/GN + base58 + checksum)
- * - Префикс: "GND" (3 байта) или "GN" (2 байта), только верхний регистр
- * - Длина: 27 (GND) или 26 (GN) байт после декодирования
- * - Контрольная сумма: первые 4 байта двойного SHA256 от payload (префикс + pubKeyHash)
- */
 export function ValidateAddress(address: string): boolean {
     try {
         const decoded = Buffer.from(base58.decode(address));
-        if (decoded.length === 27 && decoded.slice(0, 3).toString() === "GND") {
-            // ok
-        } else if (decoded.length === 26 && decoded.slice(0, 2).toString() === "GN") {
-            // ok
+
+        const gndPrefix = Buffer.from([0x47, 0x4E, 0x44]); // "GND"
+        const gnPrefix = Buffer.from([0x47, 0x4E, 0x5F]); // "GN_" в ASCII
+
+        let payload: Buffer;
+        if (decoded.slice(0, 3).equals(gndPrefix) && decoded.length === 27) {
+            payload = decoded.slice(0, 23);
+        } else if (decoded.slice(0, 3).equals(gnPrefix) && decoded.length === 27) {
+            payload = decoded.slice(0, 22);
         } else {
             return false;
         }
-        // Проверяем контрольную сумму
-        const payload = decoded.slice(0, decoded.length - 4);
-        const checksum = decoded.slice(decoded.length - 4);
-        const calcChecksum = Buffer.from(
-            sha256(sha256(payload)).toString(),
-            "hex"
-        ).slice(0, 4);
-        return checksum.equals(calcChecksum);
+
+        const checksum = decoded.slice(-4);
+        const hash = sha256(sha256(payload).toString()).toString();
+        const calculatedChecksum = Buffer.from(hash, 'hex').slice(0, 4);
+
+        return checksum.equals(calculatedChecksum);
     } catch {
         return false;
     }
