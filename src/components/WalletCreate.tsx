@@ -21,7 +21,7 @@ const WalletCreate: React.FC<{ onCreate: (wallet: WalletData) => void }> = ({ on
                 setError("Ошибка: адрес некорректен.");
                 return;
             }
-            setWallet(newWallet555);
+            setWallet(newWallet);
             setError(null);
             onCreate(newWallet);
         } catch (e) {
