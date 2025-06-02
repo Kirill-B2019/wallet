@@ -1,3 +1,4 @@
+//src/main.ts
 import CONFIG from "./config";
 import GanymedeApi from "./api/ganymedeApi";
 

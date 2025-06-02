@@ -3,6 +3,7 @@
 import axios, { AxiosInstance } from "axios";
 
 // Типы для баланса, транзакций и токенов
+
 export interface BalanceResponse {
     address: string;
     balance: string; // GND
@@ -46,7 +47,7 @@ export interface Token {
 export class GanymedeApi {
     api: AxiosInstance;
 
-    constructor(baseURL: string = "http://45.12.72.15:8080") {
+    constructor(baseURL: string) {
         this.api = axios.create({
             baseURL,
             timeout: 10_000,
