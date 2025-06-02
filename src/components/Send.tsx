@@ -1,8 +1,8 @@
 // ui/wallet/src/components/Send.tsx
 
 import React, { useState } from "react";
-import GanymedeApi, { SendTxRequest } from "../api/ganymedeApi";
-
+import api from "../main";  // Добавьте этот импорт
+import { SendTxRequest } from "../api/ganymedeApi"; // <--- добавьте
 // Для подписания транзакции приватным ключом используйте свою реализацию или библиотеку
 // Здесь предполагается, что приватный ключ уже находится в памяти (например, после импорта/разблокировки кошелька)
 
@@ -11,7 +11,7 @@ interface SendProps {
     privateKey: string; // Приватный ключ в hex (используйте безопасно!)
 }
 
-const api = new GanymedeApi(process.env.REACT_APP_API_URL || "http://localhost:8080");
+
 
 const Send: React.FC<SendProps> = ({ address, privateKey }) => {
     const [to, setTo] = useState("");

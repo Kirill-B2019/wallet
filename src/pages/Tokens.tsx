@@ -1,13 +1,6 @@
-// ui/wallet/src/pages/Tokens.tsx
-
 import React, { useEffect, useState } from "react";
 import TokenList, { Token } from "../components/TokenList";
-import GanymedeApi from "../api/ganymedeApi";
-
-/**
- * Страница просмотра токенов на адресе пользователя.
- * Реализует загрузку токенов через API и отображает их списком.
- */
+import api from "../main";  // Добавьте этот импорт
 
 interface TokensPageProps {
     walletAddress: string;
@@ -20,13 +13,11 @@ const TokensPage: React.FC<TokensPageProps> = ({ walletAddress }) => {
 
     useEffect(() => {
         let isMounted = true;
-        const api = new GanymedeApi();
 
         const fetchTokens = async () => {
             setLoading(true);
             setError(null);
             try {
-                // Получаем список токенов для адреса через API
                 const tokenList = await api.getTokens(walletAddress);
                 if (isMounted) setTokens(tokenList);
             } catch (e: any) {

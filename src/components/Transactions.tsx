@@ -1,13 +1,10 @@
-// ui/wallet/src/components/Transactions.tsx
-
 import React, { useEffect, useState } from "react";
-import GanymedeApi, { Transaction } from "../api/ganymedeApi";
+import api from "../main";
+import { Transaction } from "../api/ganymedeApi";
 
 interface TransactionsProps {
     address: string;
 }
-
-const api = new GanymedeApi(process.env.REACT_APP_API_URL || "http://localhost:8080");
 
 const formatDate = (timestamp?: number) => {
     if (!timestamp) return "";

@@ -1,12 +1,10 @@
-// ui/wallet/src/components/WalletExport.tsx
-
 import React, { useState } from "react";
 
 interface WalletExportProps {
-    privateKey: string;        // Приватный ключ в hex-формате
-    publicKey?: string;        // Публичный ключ (опционально)
-    address: string;           // Адрес кошелька
-    onExport?: () => void;     // Колбэк при экспорте (опционально)
+    privateKey: string;
+    publicKey?: string;
+    address: string;
+    onExport?: () => void;
 }
 
 const WalletExport: React.FC<WalletExportProps> = ({
@@ -29,7 +27,8 @@ const WalletExport: React.FC<WalletExportProps> = ({
 
     const handleExport = () => {
         if (onExport) onExport();
-        // Можно добавить скачивание файла с приватным ключом
+        // Можно добавить подтверждение:
+        // if (!window.confirm("Вы уверены, что хотите экспортировать приватный ключ?")) return;
         const blob = new Blob(
             [
                 `GANYMEDE WALLET EXPORT\n\nADDRESS: ${address}\nPUBLIC KEY: ${publicKey || "-"}\nPRIVATE KEY: ${privateKey}\n\nВНИМАНИЕ: Никогда не делитесь приватным ключом! Храните его в надёжном месте.`,

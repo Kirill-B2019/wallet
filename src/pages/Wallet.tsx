@@ -11,6 +11,7 @@ import Send from "../components/Send";
 import Receive from "../components/Receive";
 import Transactions from "../components/Transactions";
 import Settings from "../components/Settings";
+import CONFIG from "../config";
 
 /**
  * Страница "Кошелек" — основной интерфейс пользователя для управления кошельком ГАНИМЕД.
@@ -18,7 +19,7 @@ import Settings from "../components/Settings";
  * отправлять и получать токены, экспортировать приватный ключ и управлять настройками.
  */
 
-const DEFAULT_API_URL = "http://localhost:8080";
+const DEFAULT_API_URL = CONFIG.NODE_URL;
 
 const WalletPage: React.FC = () => {
     const {

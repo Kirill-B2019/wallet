@@ -1,7 +1,6 @@
-// ui/wallet/src/components/WalletImport.tsx
-
+//src/components/WalletImport.tsx
 import React, { useState } from "react";
-import { importWalletFromPrivateKey } from "../utils/crypto"; // Ваша функция импорта (пример ниже)
+import { importWalletFromPrivateKey } from "../utils/crypto";
 import { ValidateAddress } from "../utils/address";
 
 interface WalletData {

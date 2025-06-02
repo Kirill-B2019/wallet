@@ -1,6 +1,5 @@
-// ui/wallet/src/components/Settings.tsx
-
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import CONFIG from "../config"; // Импортируем конфиг
 
 interface SettingsProps {
     apiUrl: string;
@@ -18,6 +17,10 @@ const Settings: React.FC<SettingsProps> = ({
                                                onEncryptToggle,
                                            }) => {
     const [url, setUrl] = useState(apiUrl);
+
+    useEffect(() => {
+        setUrl(apiUrl);
+    }, [apiUrl]);
 
     const handleSave = (e: React.FormEvent) => {
         e.preventDefault();
@@ -37,7 +40,7 @@ const Settings: React.FC<SettingsProps> = ({
                         value={url}
                         onChange={e => setUrl(e.target.value)}
                         style={{ width: "100%" }}
-                        placeholder="http://localhost:8080"
+                        placeholder={CONFIG.NODE_URL} // используем значение из конфига
                     />
                 </div>
                 <button type="submit" style={{ marginTop: 8 }}>
